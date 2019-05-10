@@ -2,7 +2,7 @@ import axios from "axios";
 
 export const DailyBoxOffice = axios.create({
   baseURL:
-    "http://www.kobis.or.kr/kobisopenapi/webservice/rest/boxoffice/searchDailyBoxOfficeList.json",
+    "https://www.kobis.or.kr/kobisopenapi/webservice/rest/boxoffice/searchDailyBoxOfficeList.json",
   params: {
     key: process.env.REACT_APP_KOBIS_KEY
   }
@@ -10,7 +10,7 @@ export const DailyBoxOffice = axios.create({
 
 export const PeopleInfo = axios.create({
   baseURL:
-    "http://www.kobis.or.kr/kobisopenapi/webservice/rest/people/searchPeopleInfo.json?",
+    "https://www.kobis.or.kr/kobisopenapi/webservice/rest/people/searchPeopleInfo.json?",
   params: {
     key: process.env.REACT_APP_KOBIS_KEY
   }
