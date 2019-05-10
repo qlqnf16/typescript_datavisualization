@@ -8,6 +8,7 @@ import "billboard.js/dist/billboard.css";
 
 import Filter from "../components/Filter";
 import BoxOfficeCharts from "../components/BoxOfficeChart";
+import UBDCHart from "../components/UBDChart";
 
 interface boxOfficeRes {
   rank: string;
@@ -47,8 +48,6 @@ class Home extends React.Component<Props, State> {
       }
     });
 
-    console.log(boxOfficeResult);
-
     const { dailyBoxOfficeList: boxOfficeList } = boxOfficeResult;
     this.setState({ boxOfficeList });
   };
@@ -56,6 +55,7 @@ class Home extends React.Component<Props, State> {
   componentDidMount = async () => {
     await this.getResult();
     await this.renderChart();
+    console.log(this.state.boxOfficeList);
   };
 
   componentDidUpdate = (prevProps: Props, prevState: State) => {
@@ -105,9 +105,15 @@ class Home extends React.Component<Props, State> {
   };
 
   render() {
+    const audieList: any[] = ["UBD"];
+    this.state.boxOfficeList.map(boxOffice => {
+      let UBD = parseInt(boxOffice.audiAcc) / 1700000;
+      audieList.push(UBD.toFixed(2));
+    });
+    console.log(audieList);
     return (
       <div>
-        <BoxOfficeCharts />
+        <UBDCHart boxOfficeList={audieList} />
         <div>
           <div>dummy people</div>
           <Link to={`person/10087253`}>하정우</Link>
