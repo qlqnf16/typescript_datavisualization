@@ -15,3 +15,10 @@ export const PeopleInfo = axios.create({
     key: process.env.REACT_APP_KOBIS_KEY
   }
 });
+
+export const TmdbInfo = axios.create({
+  baseURL: "https://api.themoviedb.org/",
+  params: {
+    api_key: process.env.REACT_APP_TMDB_KEY
+  }
+});

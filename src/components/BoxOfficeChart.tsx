@@ -1,6 +1,7 @@
 import React from "react";
-// import AvengersEndgameRecords from "../static/어벤저스_엔드게임.json";
+import { endgameRecords } from "../static/endgame";
 // import UsRecords from "../static/어스.json";
+import bb from "billboard.js";
 
 interface Props {}
 interface State {
@@ -15,9 +16,37 @@ class BoxOfficeCharts extends React.Component<Props, State> {
     };
   }
 
-  // renderChart = () => {
-  //     const { rank } = AvengersEndgameRecords;
-  // }
+  componentDidMount = () => {
+    this.renderChart();
+  };
+
+  renderChart = () => {
+    bb.generate({
+      bindto: "#boxOfficeChart",
+      data: {
+        x: "date",
+        json: endgameRecords,
+        axes: {
+          rank: "y"
+        },
+        types: {
+          rank: "line"
+        }
+      },
+      axis: {
+        y: {
+          inverted: true
+        },
+        x: {
+          type: "timeseries"
+        }
+      }
+    });
+  };
+
+  render() {
+    return <div id="boxOfficeChart" />;
+  }
 }
 
 export default BoxOfficeCharts;

@@ -7,6 +7,7 @@ import chart from "billboard.js";
 import "billboard.js/dist/billboard.css";
 
 import Filter from "../components/Filter";
+import BoxOfficeCharts from "../components/BoxOfficeChart";
 
 interface boxOfficeRes {
   rank: string;
@@ -106,6 +107,7 @@ class Home extends React.Component<Props, State> {
   render() {
     return (
       <div>
+        <BoxOfficeCharts />
         <div>
           <div>dummy people</div>
           <Link to={`person/10087253`}>하정우</Link>

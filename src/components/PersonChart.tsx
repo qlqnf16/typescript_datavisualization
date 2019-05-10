@@ -4,6 +4,7 @@ import "billboard.js/dist/theme/insight.css";
 
 interface Props {
   movieCnt: number;
+  popularity: number;
 }
 
 interface State {
@@ -29,24 +30,31 @@ class PersonChart extends React.Component<Props, State> {
   };
 
   componentDidUpdate = (prevProps: Props, prevState: State) => {
-    if (prevProps.movieCnt !== this.props.movieCnt) {
+    if (prevProps !== this.props) {
       this._renderChart();
     }
   };
 
   _renderChart() {
+    let popularity = this.props.popularity;
+    if (popularity <= 20) popularity = 1;
+    else if (popularity > 20 && popularity <= 40) popularity = 2;
+    else if (popularity > 40 && popularity <= 60) popularity = 3;
+    else if (popularity > 60 && popularity <= 80) popularity = 4;
+    else popularity = 5;
+
     let chart = bb.generate({
       bindto: "#personStat",
       data: {
         x: "x",
         columns: [
-          ["x", "관객수", "영화편수", "평균평점", "검색수", "평균 UBDD"],
+          ["x", "관객수", "영화편수", "평균평점", "인기도", "평균 UBDD"],
           [
             "data1",
             this.state.audieAcc,
             this.props.movieCnt / 10,
             this.state.avgRate,
-            this.state.searchCnt,
+            popularity,
             this.state.avgUBDD
           ]
         ],
