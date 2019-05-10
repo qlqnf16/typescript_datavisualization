@@ -3,12 +3,17 @@ import "./App.css";
 import moment from "moment";
 import axios from "./axios";
 
+import chart from "billboard.js";
+import "billboard.js/dist/billboard.css";
+
 import Filter from "./components/Filter";
 
 interface boxOfficeRes {
   rank: string;
   movieNm: string;
   movieCd: string;
+  salesAcc: string;
+  audiAcc: string;
 }
 
 interface Props {}
@@ -45,14 +50,56 @@ class App extends React.Component<Props, State> {
     this.setState({ boxOfficeList });
   };
 
-  componentDidMount = () => {
-    this.getResult();
+  componentDidMount = async () => {
+    console.log("componentDidMount");
+    await this.getResult();
+    await this.renderChart();
   };
 
-  changeDate = (e: any) => {
-    let newDate = moment(e.target.value, "YYYY-MM-DD").format("YYYYMMDD");
-    this.setState({ targetDt: newDate });
-    this.getResult();
+  componentDidUpdate = (prevProps: Props, prevState: State) => {
+    if (this.state.targetDt != prevState.targetDt) {
+      this.getResult();
+      this.renderChart();
+    }
+  };
+
+  changeDate = (date: any) => {
+    if (date != null) {
+      this.setState({ targetDt: date.format("YYYYMMDD") });
+    }
+  };
+
+  renderChart = () => {
+    let salesAccColumn: any[] = ["누적매출"];
+    let audiAccColumn: any[] = ["누적관객수"];
+    let movies: string[] = [];
+
+    this.state.boxOfficeList.map(result => {
+      salesAccColumn.push(parseInt(result.salesAcc));
+      audiAccColumn.push(parseInt(result.audiAcc));
+      movies.push(result.movieNm);
+    });
+
+    chart.generate({
+      bindto: "#myChart",
+      data: {
+        columns: [salesAccColumn, audiAccColumn],
+        type: "bar",
+        axes: {
+          누적매출: "y",
+          누적관객수: "y2"
+        }
+      },
+      axis: {
+        x: {
+          type: "category",
+          categories: movies
+        },
+        y2: {
+          show: true
+        }
+      }
+    });
   };
 
   render() {
@@ -61,16 +108,17 @@ class App extends React.Component<Props, State> {
         <Filter
           today={today}
           changeDate={this.changeDate}
-          defaultValue={moment(this.state.targetDt, "YYYYMMDD").format(
-            "YYYY-MM-DD"
-          )}
+          defaultValue={this.state.targetDt}
         />
         {this.state.boxOfficeList.map(boxOffice => (
           <div key={boxOffice.movieCd}>
             <div>{boxOffice.rank}</div>
             <div>{boxOffice.movieNm}</div>
+            <div>{parseInt(boxOffice.salesAcc).toLocaleString()}원</div>
+            <div>{parseInt(boxOffice.audiAcc).toLocaleString()}명</div>
           </div>
         ))}
+        <div id="myChart" />
       </div>
     );
   }

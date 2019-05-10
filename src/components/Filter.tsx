@@ -1,4 +1,6 @@
 import React from "react";
+import { DatePicker } from "antd";
+import moment from "moment";
 
 interface Props {
   changeDate: (date: any) => void;
@@ -8,7 +10,10 @@ interface Props {
 
 const Filter: React.FC<Props> = ({ changeDate, today, defaultValue }) => {
   return (
-    <input type="date" onChange={changeDate} max={today} value={defaultValue} />
+    <DatePicker
+      onChange={changeDate}
+      defaultValue={moment(defaultValue, "YYYY-MM-DD")}
+    />
   );
 };
 
