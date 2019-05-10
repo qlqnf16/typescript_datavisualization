@@ -1,5 +1,17 @@
-import axios from 'axios';
+import axios from "axios";
 
-export default axios.create({
-    baseURL: "http://www.kobis.or.kr/kobisopenapi/webservice/rest/boxoffice/searchDailyBoxOfficeList.json"
-})
+export const DailyBoxOffice = axios.create({
+  baseURL:
+    "http://www.kobis.or.kr/kobisopenapi/webservice/rest/boxoffice/searchDailyBoxOfficeList.json",
+  params: {
+    key: process.env.REACT_APP_KOBIS_KEY
+  }
+});
+
+export const PeopleInfo = axios.create({
+  baseURL:
+    "http://www.kobis.or.kr/kobisopenapi/webservice/rest/people/searchPeopleInfo.json?",
+  params: {
+    key: process.env.REACT_APP_KOBIS_KEY
+  }
+});
