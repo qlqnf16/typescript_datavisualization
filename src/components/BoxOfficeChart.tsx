@@ -1,6 +1,6 @@
 import React from "react";
-import AvengersEndgameRecords from "../static/어벤저스_엔드게임.json";
-import UsRecords from "../static/어스.json";
+// import AvengersEndgameRecords from "../static/어벤저스_엔드게임.json";
+// import UsRecords from "../static/어스.json";
 
 interface Props {}
 interface State {
