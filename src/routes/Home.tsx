@@ -46,6 +46,8 @@ class Home extends React.Component<Props, State> {
       }
     });
 
+    console.log(boxOfficeResult);
+
     const { dailyBoxOfficeList: boxOfficeList } = boxOfficeResult;
     this.setState({ boxOfficeList });
   };
