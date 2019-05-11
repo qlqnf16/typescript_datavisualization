@@ -107,7 +107,7 @@ class Home extends React.Component<Props, State> {
   render() {
     const audieList: any[] = ["UBD"];
     this.state.boxOfficeList.map(boxOffice => {
-      let UBD = parseInt(boxOffice.audiAcc) / 1700000;
+      let UBD = parseInt(boxOffice.audiAcc) / 170000;
       audieList.push(UBD.toFixed(2));
     });
     console.log(audieList);

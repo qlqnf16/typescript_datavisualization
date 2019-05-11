@@ -43,7 +43,7 @@ class UBDCHart extends React.Component<Props, State> {
           type: "category"
         },
         y: {
-          max: 10
+          // max: 10
         }
       }
     });
